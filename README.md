@@ -56,7 +56,7 @@ The output shows the main system disk (`/dev/sda`) along with the newly added dr
 
 ---
 
-## **Step 3: Partitioning the Disks Using Fdisk**
+## **Step 2: Partitioning the Disks Using Fdisk**
 
 To prepare the virtual disks for use with LVM, they must first be divided into smaller sections called **partitions**. Partitioning allows us to separate physical space on a disk into logical segments that can be individually managed, formatted, or combined later in a volume group.
 
@@ -96,7 +96,7 @@ Now I'm wondering why the partition sizes aren’t exactly what we entered for t
 
 ---
 
-## **Step 4: Initializing Physical Volumes (PVs)**
+## **Step 3: Initializing Physical Volumes (PVs)**
 
 ### Definition:
 A **Physical Volume (PV)** is the lowest-level storage unit in LVM, typically corresponding to a disk partition or entire disk that LVM can use for volume grouping.  
@@ -118,26 +118,41 @@ Verification with `sudo lvmdiskscan -l` shows the four recognized LVM physical v
 
 ---
 
-## **Step 5: Creating a Volume Group (VG)**
+## **Step 4: Creating a Volume Group (VG)**
 
-### Definition:
-A **Volume Group (VG)** combines multiple physical volumes into a single pool of storage. Logical volumes are created from this shared pool, allowing flexible allocation of disk space.  
+The next step is to combine all four partitions into a single shared storage pool using a **Volume Group (VG)**. A Volume Group is one of the core components of LVM—it unifies multiple **Physical Volumes (PVs)** into a single logical space that can later be divided into **Logical Volumes (LVs)** for actual use.  
 
-The vgcreate command was used to create a volume group named **my_vg** from the four physical volumes:  
+To create the group, we use the **vgcreate** command:
 
 ```bash
 sudo vgcreate my_vg /dev/sdb1 /dev/sdb2 /dev/sdb3 /dev/sdc1
 ```
 
+This command initializes a new volume group named **my_vg**, combining the four physical partitions created earlier into one flexible pool of storage.  
+If successful, it confirms with the message:  
+`Volume group "my_vg" successfully created`
+
 <img width="718" height="108" alt="image" src="https://github.com/user-attachments/assets/8efba53f-6adb-499d-bad6-3905b6a4c80d" />
 
-Verification with vgdisplay confirms the VG was successfully created, totaling **2.92 GiB** in size.  
+To verify the group was created, we can use the **vgdisplay** command. This provides detailed information about the new volume group such as its name, size, and available space.  
+
+```bash
+sudo vgdisplay
+```
 
 <img width="718" height="521" alt="image" src="https://github.com/user-attachments/assets/105f0851-54b4-4bbe-ad4e-2f69956b63a0" />
 
+From this output, we can see:  
+- **VG Name** – our volume group is named `my_vg`  
+- **VG Size** – the total combined size of all four partitions is about **2.92 GiB**  
+- **PE Size (Physical Extent)** – each extent is 4 MiB, meaning storage is managed in 4 MB chunks  
+- **Free PE / Size** – all extents are currently unallocated, ready for logical volumes  
+
+> Think of a Volume Group as the “warehouse” that stores all your available space, while Logical Volumes are the shelves you’ll build next to organize and use it.
+
 ---
 
-## **Step 6: Creating a Logical Volume (LV)**
+## **Step 5: Creating a Logical Volume (LV)**
 
 ### Definition:
 A **Logical Volume (LV)** acts like a partition within the volume group, but it is more flexible. It can be resized, extended, or reduced without directly affecting the physical disks underneath.  
@@ -155,7 +170,7 @@ sudo lvcreate -L 2G -n my_lv my_vg
 
 ---
 
-## **Step 7: Extending Logical Volume Capacity**
+## **Step 6: Extending Logical Volume Capacity**
 
 lvextend increases the size of an existing logical volume without destroying its data.  
 
@@ -172,7 +187,7 @@ The logical volume’s size increased from **2.00 GiB to 2.49 GiB**, confirming 
 
 ---
 
-## **Step 8: Verifying the Configuration**
+## **Step 7: Verifying the Configuration**
 
 Final verification combines multiple LVM and filesystem commands to review the configuration.  
 
