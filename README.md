@@ -103,18 +103,15 @@ A **Physical Volume (PV)** is the lowest-level storage unit in LVM, typically co
 
 Each partition was initialized as a physical volume using the pvcreate command:  
 
-X
-sudo pvcreate /dev/sdb1
-sudo pvcreate /dev/sdb2
-sudo pvcreate /dev/sdb3
-sudo pvcreate /dev/sdc1
-X
+```bash
+sudo pvcreate /dev/sdb1 /dev/sdb2 /dev/sdb3 /dev/sdc1
+```
 
 The command writes LVM metadata to the specified partitions, preparing them for use in a **Volume Group (VG)**.  
 
 Verification with `sudo lvmdiskscan -l` shows the four recognized LVM physical volumes.  
 
-<img width="568" height="209" alt="image" src="https://github.com/user-attachments/assets/a63edac8-d831-4398-b70c-acc18928f48d" />
+<img width="624" height="829" alt="image" src="https://github.com/user-attachments/assets/6176cf13-b0ea-48b4-8b6a-8c154fc06833" />
 
 ---
 
