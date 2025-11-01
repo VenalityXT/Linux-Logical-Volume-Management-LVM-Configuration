@@ -36,13 +36,13 @@ Disks smaller than about 2 GB make this difficult, since partitioning and LVM me
 2 GB is therefore the **minimum recommended size** for practicing LVM while keeping the host storage footprint small.
 
 ### Understanding Virtual Size vs Actual Size
-- **Virtual Size**: The maximum space the VM *thinks* it has (e.g., 2 GB).  
-- **Actual Size**: The real space currently used on your host drive (often only a few MB when newly created).
+- **Virtual Size**: The maximum space the VM *thinks* it has (e.g., 2 GB or 200 GB).  
+- **Actual Size**: The real space currently used on your host drive (often only a few MB when newly created and grows as you use it).
 
 Because of this, don’t hesitate to allocate generous virtual space for testing. A 20 GB system disk plus a few extra 2 GB practice drives will not immediately consume 26 GB on your host — VirtualBox grows each file only as data is written.
 
-This setup mirrors a real multi-disk Linux environment, where administrators manage multiple storage devices or logical units (LUNs) instead of one large monolithic disk.
-
+> This setup actually mirrors a real multi-disk Linux environment, where administrators manage multiple storage devices instead of one large monolithic disk!
+> You can think of it like potential and and kinetic energy for my physics nerds out there!
 <img width="1915" height="937" alt="image" src="https://github.com/user-attachments/assets/1fd9f58d-1af6-4b1f-8591-a6d7ca6444f4" />
 
 ---
