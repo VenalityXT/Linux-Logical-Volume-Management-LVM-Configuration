@@ -175,44 +175,53 @@ At this point, we’ve officially created our first virtual partition within the
 
 ## **Step 6: Extending Logical Volume Capacity**
 
-One of the biggest advantages of **LVM** over traditional partitioning is flexibility — you can increase storage on the fly without losing data or reformatting anything. That’s exactly what we’ll do here using the **lvextend** command.  
+One of the biggest advantages of **LVM** over traditional partitioning is flexibility, you can increase storage on the fly without losing data or reformatting anything. That’s exactly what we’ll do here using the **lvextend** command.  
 
-The following command expands the existing logical volume (**my_lv**) by **500 MB**, extending its total capacity beyond the original 2 GB allocation:
+The following command expands the existing logical volume (*my_lv*) by **500 MB**, extending its total capacity beyond the original 2 GB allocation:
 
 ```bash
 sudo lvextend -L +500MB /dev/my_vg/my_lv
 ```
 
 Here’s the breakdown:
-- **-L** specifies the size change  
-- **+500MB** tells LVM to add (not replace) 500 MB to the current volume size  
+- `-L` specifies the size change  
+- `+500MB` tells LVM to add (not replace) 500 MB to the current volume size  
 
 <img width="1117" height="116" alt="image" src="https://github.com/user-attachments/assets/e6e84491-624f-4d52-bb70-cd65d7f713e2" />
 
-As shown above, the logical volume **my_lv** successfully expanded from **2.00 GiB** to **2.49 GiB**.  
-This proves just how powerful LVM can be — you can dynamically scale storage to meet your system’s needs without downtime or data loss. Try doing that with a static partition!
+> As shown above, the logical volume **my_lv** successfully expanded from **2.00 GiB** to **2.49 GiB**.  
+
+You can dynamically scale storage to meet your system’s needs without downtime or data loss. Try doing that with a static partition!
 
 ---
 
 ## **Step 7: Verifying the Configuration**
 
-Final verification combines multiple LVM and filesystem commands to review the configuration.  
+With everything configured, the final step is to verify that our Logical Volume setup works as intended. To make the process efficient, we can chain multiple commands together using semicolons (`;`).  
+This lets us execute several commands in a single line, perfect for quickly displaying all key LVM and disk information at once.
 
 ```bash
-sudo pvs
-sudo vgs
-sudo lvs
-lsblk
-df -hT
+sudo pvs; sudo vgs; sudo lvs; lsblk; df -hT
 ```
 
-- pvs, vgs, and lvs display physical, volume group, and logical volume information respectively.  
-- lsblk shows the hierarchy of devices and partitions.  
-- df -hT lists mounted filesystems with size and type.  
+Here’s what each command does:
+- **pvs** — Displays information about **Physical Volumes (PVs)**, showing which devices are part of LVM and how much space they contribute.  
+- **vgs** — Summarizes the **Volume Group (VG)** details such as total size, free space, and number of physical volumes.  
+- **lvs** — Lists all **Logical Volumes (LVs)** along with their attributes, size, and associated volume groups.  
+- **lsblk** — Provides a hierarchical view of block devices, making it easy to see how partitions, LVM layers, and volumes are connected.  
+- **df -hT** — Displays mounted filesystems, their types, and usage in a human-readable format.
 
 <img width="997" height="827" alt="image" src="https://github.com/user-attachments/assets/cec8e56d-b399-43c2-a6ff-70897cf913a7" />
 
-This confirms all volumes are active and functioning correctly.
+From the output, we can confirm:
+- Each **Physical Volume (sdb1, sdb2, sdb3, sdc1)** was successfully added to the Volume Group `my_vg`.  
+- The Volume Group `my_vg` reports a total size of **2.92 GiB** with **444 MB free**, aligning with our earlier calculations.  
+- The Logical Volume `my_lv` shows as **2.49 GiB**, matching the 2 GB initial allocation plus the 500 MB extension from Step 6.  
+- The `lsblk` output visually maps how the LV sits atop multiple partitions across disks `sdb` and `sdc`.  
+- Finally, `df -hT` verifies that all filesystems are intact, confirming there are no mount or read errors after resizing.
+
+This full verification step ties everything together by proving that the Logical Volume, Volume Group, and Physical Volumes are all linked properly and actively managed by LVM. 
+In short, we built a flexible, scalable storage architecture from the ground up!
 
 ---
 
