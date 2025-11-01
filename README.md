@@ -50,20 +50,11 @@ Because of this, don’t hesitate to allocate generous virtual space for testing
 
 ### **Verifying Disk Attachments in Linux**
 
-After attaching the disks in VirtualBox, the next step is to verify that Kali Linux detects them.  
-Inside the VM, run:
-
-X
-lsblk
-X
-
-The **lsblk** command lists block devices—any device that provides raw storage such as physical drives, partitions, or logical volumes.  
-You should now see your new drives appear as **/dev/sdb** and **/dev/sdc**, in addition to the existing system disk **/dev/sda**.
-
-Seeing these listed confirms that the VM recognizes the new virtual hardware and that the drives are ready for partitioning in the next phase of the project.  
-If they do not appear, re-check **Settings → Storage** in VirtualBox to ensure the drives were properly attached.
+The `lsblk` command lists all available block storage devices connected to the system. It displays information such as the device name, size, type, and mount point, helping identify which disks are currently in use and which are available for configuration. Here’s a screenshot of the output for reference:
 
 <img width="502" height="235" alt="image" src="https://github.com/user-attachments/assets/21ba9748-6819-45da-893f-bf30a6c79db5" />
+
+The output shows the main system disk (`/dev/sda`) along with the newly added drives (`/dev/sdb` and `/dev/sdc`). Their appearance here confirms that the virtual hardware was properly attached with 2GB and is ready for partitioning in the next step.
 
 ---
 
