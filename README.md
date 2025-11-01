@@ -24,7 +24,7 @@ This project demonstrates the setup and configuration of Linux Logical Volume Ma
 
 ## **Step 1: Creating Virtual Disks in VirtualBox**
 
-To simulate working with multiple physical drives, two additional **2 GB virtual disks** were added to the Kali Linux VM using VirtualBox. These disks are **dynamically allocated**, meaning VirtualBox creates a “virtual” disk file that only consumes host storage as data is written.
+To simulate working with multiple physical drives (and to avoid wiping my boot volume... again), two additional **2 GB virtual disks** were added to the Kali Linux VM using VirtualBox. These disks are **dynamically allocated**, meaning VirtualBox creates a “virtual” disk file that only consumes host storage as data is written.
 
 Choosing **2 GB** isn’t arbitrary.  
 For Logical Volume Management (LVM) to be meaningful, you need enough raw space to:
@@ -48,9 +48,20 @@ Because of this, don’t hesitate to allocate generous virtual space for testing
 
 ---
 
-## **Step 2: Verifying Disk Attachments in Linux**
+### **Verifying Disk Attachments in Linux**
 
-The lsblk command lists all available storage devices and their partitions. Newly added disks appear as `/dev/sdb` and `/dev/sdc`, confirming successful attachment.  
+After attaching the disks in VirtualBox, the next step is to verify that Kali Linux detects them.  
+Inside the VM, run:
+
+X
+lsblk
+X
+
+The **lsblk** command lists block devices—any device that provides raw storage such as physical drives, partitions, or logical volumes.  
+You should now see your new drives appear as **/dev/sdb** and **/dev/sdc**, in addition to the existing system disk **/dev/sda**.
+
+Seeing these listed confirms that the VM recognizes the new virtual hardware and that the drives are ready for partitioning in the next phase of the project.  
+If they do not appear, re-check **Settings → Storage** in VirtualBox to ensure the drives were properly attached.
 
 <img width="502" height="235" alt="image" src="https://github.com/user-attachments/assets/21ba9748-6819-45da-893f-bf30a6c79db5" />
 
