@@ -76,7 +76,7 @@ Inside fdisk:
 - Repeat this process to create three equal partitions on `/dev/sdb`  
 - Finally, use **w** to write changes to the partition table  
 
-> > Think of partitions as the Lego bricks that LVM is built upon; stack them right, and everything else just clicks together (Prof M ☝️)
+> Think of partitions as the Lego bricks that LVM is built upon; stack them right, and everything else just clicks together (Prof M ☝️)
 
 <img width="1002" height="400" alt="image" src="https://github.com/user-attachments/assets/ef64a626-9250-4696-8944-7530a3127264" />
 
@@ -88,11 +88,11 @@ sudo fdisk /dev/sdc
 
 Once both disks were partitioned, the **lsblk** command was used to verify the new layout and confirm that all four partitions were successfully created and ready for LVM initialization.
 
-<img width="507" height="325" alt="image" src="https://github.com/user-attachments/assets/fd414bd6-c49d-4e71-8fb5-513b4b5b3830" />
+<img width="508" height="327" alt="image" src="https://github.com/user-attachments/assets/ffa92dae-c603-4fa7-8c0e-0a7a1ea60ffb" />
 
 > The output shows `/dev/sdb` split into three partitions and `/dev/sdc` with one, providing four total partitions that will be converted into LVM physical volumes in the next step.
 
-<-
+Now I'm wondering why the partition sizes aren’t exactly what we entered for the end sector? That’s because Linux measures in binary units (MiB/GiB) instead of decimal (MB/GB), so 1GB shows up as about 954MB!
 
 ---
 
