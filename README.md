@@ -24,10 +24,10 @@ This project demonstrates the setup and configuration of Linux Logical Volume Ma
 
 ## **Step 1: Creating Virtual Disks in VirtualBox**
 
-To simulate working with multiple physical drives (and to avoid wiping my boot volume... again), two additional **2 GB virtual disks** were added to the Kali Linux VM using VirtualBox. These disks are **dynamically allocated**, meaning VirtualBox creates a “virtual” disk file that only consumes host storage as data is written.
+To simulate working with multiple physical drives (and to avoid wiping my boot volume... again), two additional virtual disks were added to the Kali Linux VM using VirtualBox. These disks were configured as **dynamically allocated**, meaning they only consume host storage as data is written inside the VM rather than taking up the full space immediately. Each disk was given **2 GB of virtual space**, which provides enough room to demonstrate the flexibility and scalability of Logical Volume Management (LVM).
 
 Choosing **2 GB** isn’t arbitrary.  
-For Logical Volume Management (LVM) to be meaningful, you need enough raw space to:
+For LVM to be meaningful, you need enough raw space to:
 - Create multiple partitions on one drive  
 - Combine them into a volume group  
 - Leave room for future extensions or resizing tests  
@@ -39,7 +39,7 @@ Disks smaller than about 2 GB make this difficult, since partitioning and LVM me
 - **Virtual Size**: The maximum space the VM *thinks* it has (e.g., 2 GB or 200 GB).  
 - **Actual Size**: The real space currently used on your host drive (often only a few MB when newly created and grows as you use it).
 
-Because of this, don’t hesitate to allocate generous virtual space for testing. A 20 GB system disk plus a few extra 2 GB practice drives will not immediately consume 26 GB on your host — VirtualBox grows each file only as data is written.
+Because of this, don’t hesitate to allocate generous virtual space for testing. A 20 GB system disk plus a few extra 2 GB practice drives will not immediately consume 26 GB on your host as VirtualBox grows each file only as the data is written.
 
 > This setup actually mirrors a real multi-disk Linux environment, where administrators manage multiple storage devices instead of one large monolithic disk!
 <img width="1915" height="937" alt="image" src="https://github.com/user-attachments/assets/1fd9f58d-1af6-4b1f-8591-a6d7ca6444f4" />
