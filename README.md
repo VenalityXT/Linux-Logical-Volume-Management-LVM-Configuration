@@ -24,7 +24,7 @@ This project demonstrates the setup and configuration of Linux Logical Volume Ma
 
 ## **Step 1: Creating Virtual Disks in VirtualBox**
 
-To simulate working with multiple physical drives (and to avoid accidentally wiping my boot volume... again), two additional **2 GB virtual disks** were added to the VM using VirtualBox. These disks were configured as **dynamically allocated**, meaning they only consume host storage as data is written.
+To simulate working with multiple physical drives (and to avoid accidentally wiping my boot volume... again), two additional **2 GB virtual disks** were added to the VM using VirtualBox. These disks were configured as **dynamically allocated**, which we'll circle back to later.
 
 The **2 GB size** was chosen intentionally as it’s the minimum practical amount for Logical Volume Management (LVM). Smaller disks make partitioning and metadata allocation difficult, while 2 GB provides enough space to perform key LVM operations effectively.  
 
@@ -39,7 +39,7 @@ This amount of space allows us to:
 
 Because of this dynamic allocation, you can safely allocate larger virtual disks for testing without immediately using that same amount of physical storage on your host. This allows flexible experimentation with multiple drives and configurations while keeping your system efficient.
 
-> This setup actually mirrors a real multi-disk Linux environment, where administrators manage multiple storage devices instead of one large monolithic disk!
+> This setup actually mirrors a real multi-disk environment where admins manage multiple storage devices instead of one monolithic disk!
 <img width="1915" height="937" alt="image" src="https://github.com/user-attachments/assets/1fd9f58d-1af6-4b1f-8591-a6d7ca6444f4" />
 
 > You can think of it like potential and and kinetic energy for my physics nerds out there!
