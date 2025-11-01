@@ -197,8 +197,8 @@ You can dynamically scale storage to meet your system’s needs without downtime
 
 ## **Step 7: Verifying the Configuration**
 
-With everything configured, the final step is to verify that our Logical Volume setup works as intended. To make the process efficient, we can chain multiple commands together using semicolons (`;`).  
-This lets us execute several commands in a single line, perfect for quickly displaying all key LVM and disk information at once.
+With everything configured, the final step is to verify that our Logical Volume setup works as intended. To make the process efficient, we can chain multiple commands together using semicolons (;).
+This lets us execute several commands sequentially in a single line, perfect for quickly displaying all key LVM and disk information at once.
 
 ```bash
 sudo pvs; sudo vgs; sudo lvs; lsblk; df -hT
