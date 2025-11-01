@@ -120,7 +120,7 @@ Verification with `sudo lvmdiskscan -l` shows the four recognized LVM physical v
 
 ## **Step 4: Creating a Volume Group (VG)**
 
-The next step is to combine all four partitions into a single shared storage pool using a **Volume Group (VG)**. A Volume Group is one of the core components of LVM—it unifies multiple **Physical Volumes (PVs)** into a single logical space that can later be divided into **Logical Volumes (LVs)** for actual use.  
+The next step is to combine all four partitions into a single shared storage pool using a **Volume Group (VG)**. A Volume Group is one of the core components of LVM; it unifies multiple **Physical Volumes (PVs)** into a single logical space that can later be divided into **Logical Volumes (LVs)** for actual use.  
 
 To create the group, we use the **vgcreate** command:
 
