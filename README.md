@@ -24,25 +24,24 @@ This project demonstrates the setup and configuration of Linux Logical Volume Ma
 
 ## **Step 1: Creating Virtual Disks in VirtualBox**
 
-In this lab, additional virtual disks were created and attached to the Kali Linux VM in VirtualBox to simulate working with multiple physical drives. Each new disk was provisioned as a dynamically allocated virtual disk with a virtual size of 2 GB.
+To simulate working with multiple physical drives, two additional **2 GB virtual disks** were added to the Kali Linux VM using VirtualBox. These disks are **dynamically allocated**, meaning VirtualBox creates a “virtual” disk file that only consumes host storage as data is written.
 
-The reason 2 GB was chosen is intentional. When working with Logical Volume Management (LVM), you need enough raw space to actually demonstrate realistic storage management tasks: creating multiple partitions, turning those partitions into physical volumes, and then grouping them into one volume group. If the disk is too small, you cannot meaningfully split it into multiple partitions and still have usable storage in each. Around 2 GB is a good lower bound for this project because it lets you do things like:
-- Split one disk into multiple ~600–700 MB partitions
-- Create another disk with a ~1 GB partition
-- Add them all into a single logical pool and still have space left to extend a logical volume later
+Choosing **2 GB** isn’t arbitrary.  
+For Logical Volume Management (LVM) to be meaningful, you need enough raw space to:
+- Create multiple partitions on one drive  
+- Combine them into a volume group  
+- Leave room for future extensions or resizing tests  
 
-In other words, 2 GB is not an arbitrary number. It is large enough to support multiple partitions and LVM operations but still small enough that you are not wasting host storage.
+Disks smaller than about 2 GB make this difficult, since partitioning and LVM metadata require some overhead.  
+2 GB is therefore the **minimum recommended size** for practicing LVM while keeping the host storage footprint small.
 
-When adding these disks in VirtualBox, they were created as dynamically allocated. This means VirtualBox reserves a “Virtual Size,” but it does not immediately consume that full amount on the host system. Instead, it only consumes “Actual Size,” which grows as the guest OS actually writes data to the disk.
+### Understanding Virtual Size vs Actual Size
+- **Virtual Size**: The maximum space the VM *thinks* it has (e.g., 2 GB).  
+- **Actual Size**: The real space currently used on your host drive (often only a few MB when newly created).
 
-- Virtual Size is the maximum capacity the VM sees. In this case, for each new virtual hard drive, that is 2 GB
-- Actual Size is how much space is currently being used on the physical host to store the contents of that drive. On a new, empty drive this is only a few megabytes
+Because of this, don’t hesitate to allocate generous virtual space for testing. A 20 GB system disk plus a few extra 2 GB practice drives will not immediately consume 26 GB on your host — VirtualBox grows each file only as data is written.
 
-This has two practical implications for anyone repeating this project:
-1. You can safely create multiple virtual disks at sizes that look “big” on paper without immediately filling your host machine’s real storage
-2. You should not be afraid to over-provision slightly in VirtualBox. Giving yourself a 20 GB root disk and a few extra 2 GB practice disks does not mean you are instantly losing 26 GB of laptop SSD. You only pay for what is actually written inside the VM
-
-This setup models a real multi-drive or multi-LUN Linux server, which is important when practicing LVM because LVM is most useful in environments that do not rely on a single physical disk.
+This setup mirrors a real multi-disk Linux environment, where administrators manage multiple storage devices or logical units (LUNs) instead of one large monolithic disk.
 
 <img width="1915" height="937" alt="image" src="https://github.com/user-attachments/assets/1fd9f58d-1af6-4b1f-8591-a6d7ca6444f4" />
 
