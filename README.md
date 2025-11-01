@@ -86,7 +86,7 @@ After creating the three partitions (`sdb1`, `sdb2`, and `sdb3`), the same proce
 sudo fdisk /dev/sdc
 ```
 
-Once both disks were partitioned, the **lsblk** command was used to verify the new layout and confirm that all four partitions were successfully created and ready for LVM initialization.
+Once both disks were partitioned, the `lsblk` command was used to verify the new layout and confirm that all four partitions were successfully created and ready for LVM initialization.
 
 <img width="508" height="327" alt="image" src="https://github.com/user-attachments/assets/ffa92dae-c603-4fa7-8c0e-0a7a1ea60ffb" />
 
@@ -122,7 +122,7 @@ Verification with `sudo lvmdiskscan -l` shows the four recognized LVM physical v
 
 The next step is to combine all four partitions into a single shared storage pool using a **Volume Group (VG)**. A Volume Group is one of the core components of LVM; it unifies multiple **Physical Volumes (PVs)** into a single logical space that can later be divided into **Logical Volumes (LVs)** for actual use.  
 
-To create the group, we use the **vgcreate** command:
+To create the group, we use the `vgcreate` command:
 
 ```bash
 sudo vgcreate my_vg /dev/sdb1 /dev/sdb2 /dev/sdb3 /dev/sdc1
@@ -132,7 +132,7 @@ This command initializes a new volume group named **my_vg**, combining the four 
 
 <img width="718" height="108" alt="image" src="https://github.com/user-attachments/assets/8efba53f-6adb-499d-bad6-3905b6a4c80d" />
 
-To further verify the group was created, we can use the **vgdisplay** command. This provides detailed information about the new volume group such as its name, size, and available space.  
+To further verify the group was created, we can use the `vgdisplay` command. This provides detailed information about the new volume group such as its name, size, and available space.  
 
 ```bash
 sudo vgdisplay
