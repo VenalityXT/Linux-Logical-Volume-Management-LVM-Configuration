@@ -58,21 +58,41 @@ The output shows the main system disk (`/dev/sda`) along with the newly added dr
 
 ## **Step 3: Partitioning the Disks Using Fdisk**
 
-fdisk is a command-line utility used to create and manage disk partitions. Here, `/dev/sdb` was divided into three partitions (`sdb1`, `sdb2`, `sdb3`), each approximately 682 MB in size.  
+To prepare the virtual disks for use with LVM, they must first be divided into smaller sections called **partitions**. Partitioning allows us to separate physical space on a disk into logical segments that can be individually managed, formatted, or combined later in a volume group.
 
-<img width="1002" height="400" alt="image" src="https://github.com/user-attachments/assets/f804e08e-db49-45f1-b854-a8580ee231c7" />
+The **fdisk** utility is a command-line tool used to create and manage disk partitions in Linux. It supports both MBR (Master Boot Record) and GPT (GUID Partition Table) formats, though for this project, we’re using the simpler **MBR** layout since the goal is to practice foundational LVM concepts, not modern bootloader configurations.
 
-After creating each partition, the **w command** writes the changes to the disk’s partition table.  
+Here, the command below was used to create partitions on the `/dev/sdb` disk:
 
-<img width="942" height="576" alt="image" src="https://github.com/user-attachments/assets/641ba7b6-4669-4261-8a1e-b0cc6efe59b7" />
+```bash
+sudo fdisk /dev/sdb
+```
 
-The same process was performed on `/dev/sdc`, creating a single **954 MB partition (`sdc1`)**.  
+Inside fdisk:
+- Type **n** to create a new partition  
+- Choose **p** for a primary partition  
+- Press **Enter** to accept the default partition number and first sector  
+- Specify the size (for example, `+682MB` for a 682 MB partition)  
+- Repeat this process to create three equal partitions on `/dev/sdb`  
+- Finally, use **w** to write changes to the partition table  
 
-<img width="507" height="325" alt="image" src="https://github.com/user-attachments/assets/f0cfd134-9216-432c-bbfa-9e6dbde4959a" />
+> Think of partitions as the “building blocks” that LVM will later combine into one flexible storage pool.
 
-Running lsblk again confirms all partitions were successfully created.  
+<img width="1002" height="400" alt="image" src="https://github.com/user-attachments/assets/ef64a626-9250-4696-8944-7530a3127264" />
 
--
+After creating the three partitions (`sdb1`, `sdb2`, and `sdb3`), the same process was performed on `/dev/sdc` to create a single **954 MB partition** (`sdc1`):
+
+```bash
+sudo fdisk /dev/sdc
+```
+
+Once both disks were partitioned, the **lsblk** command was used to verify the new layout and confirm that all four partitions were successfully created and ready for LVM initialization.
+
+<img width="507" height="325" alt="image" src="https://github.com/user-attachments/assets/fd414bd6-c49d-4e71-8fb5-513b4b5b3830" />
+
+> The output shows `/dev/sdb` split into three partitions and `/dev/sdc` with one, providing four total partitions that will be converted into LVM physical volumes in the next step.
+
+<-
 
 ---
 
