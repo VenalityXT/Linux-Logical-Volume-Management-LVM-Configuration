@@ -43,7 +43,9 @@ Because of this, don’t hesitate to allocate generous virtual space for testing
 
 > This setup actually mirrors a real multi-disk Linux environment, where administrators manage multiple storage devices instead of one large monolithic disk!
 <img width="1915" height="937" alt="image" src="https://github.com/user-attachments/assets/1fd9f58d-1af6-4b1f-8591-a6d7ca6444f4" />
+
 > You can think of it like potential and and kinetic energy for my physics nerds out there!
+
 ---
 
 ## **Step 2: Verifying Disk Attachments in Linux**
