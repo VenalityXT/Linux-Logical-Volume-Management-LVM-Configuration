@@ -50,7 +50,7 @@ Because of this dynamic allocation, you can safely allocate larger virtual disks
 
 The `lsblk` command lists all available block storage devices connected to the system. It displays information such as the device name, size, type, and mount point, helping identify which disks are currently in use and which are available for configuration. Here’s a screenshot of the output for reference:
 
-<img width="502" height="235" alt="image" src="https://github.com/user-attachments/assets/21ba9748-6819-45da-893f-bf30a6c79db5" />
+<img width="498" height="234" alt="image" src="https://github.com/user-attachments/assets/a6a22e61-3e0b-4020-aab7-0d11694b16f1" />
 
 The output shows the main system disk (`/dev/sda`) along with the newly added drives (`/dev/sdb` and `/dev/sdc`). Their appearance here confirms that the virtual hardware was properly attached with 2GB and is ready for partitioning in the next step.
 
