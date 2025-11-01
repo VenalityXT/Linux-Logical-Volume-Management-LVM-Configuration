@@ -76,7 +76,7 @@ Inside fdisk:
 - Repeat this process to create three equal partitions on `/dev/sdb`  
 - Finally, use **w** to write changes to the partition table  
 
-> Think of partitions as the “building blocks” that LVM will later combine into one flexible storage pool.
+> > Think of partitions as the Lego bricks that LVM is built upon; stack them right, and everything else just clicks together (Prof M ☝️)
 
 <img width="1002" height="400" alt="image" src="https://github.com/user-attachments/assets/ef64a626-9250-4696-8944-7530a3127264" />
 
