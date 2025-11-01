@@ -141,7 +141,7 @@ sudo vgdisplay
 <img width="718" height="521" alt="image" src="https://github.com/user-attachments/assets/105f0851-54b4-4bbe-ad4e-2f69956b63a0" />
 
 From this output, we can see:  
-- **VG Name** – our volume group is named `my_vg`  
+- **VG Name** – our volume group is named **my_vg**  
 - **VG Size** – the total combined size of all four partitions is about **2.92 GiB**  
 - **PE Size (Physical Extent)** – each extent is 4 MiB, meaning storage is managed in 4 MB chunks  
 - **Free PE / Size** – all extents are currently unallocated, ready for logical volumes  
@@ -152,36 +152,45 @@ From this output, we can see:
 
 ## **Step 5: Creating a Logical Volume (LV)**
 
-### Definition:
-A **Logical Volume (LV)** acts like a partition within the volume group, but it is more flexible. It can be resized, extended, or reduced without directly affecting the physical disks underneath.  
+Now that we’ve built our Volume Group, it’s time to carve out a portion of that space into something usable like a **Logical Volume (LV)**.  
+Think of this like setting up a “virtual partition” inside your warehouse (the VG) where actual data will live.
 
-The command below creates a logical volume named `my_lv` of size 2 GB within the `my_vg` volume group:  
+A **Logical Volume** behaves much like a normal disk partition, but with far more flexibility. It can be resized, extended, or even moved across drives without affecting the underlying physical disks.
+
+To create a new logical volume named **my_lv** with a size of **2 GB** from our **my_vg** volume group, use the following command:
 
 ```bash
 sudo lvcreate -L 2G -n my_lv my_vg
 ```
 
-- `-L` specifies the logical volume size  
-- `-n` specifies the logical volume name  
+Here’s what each flag does:
+- `-L` specifies the size of the logical volume  
+- `-n` specifies the name to assign to it  
 
 <img width="440" height="81" alt="image" src="https://github.com/user-attachments/assets/0dacabc6-aac0-4217-8cd5-3a8397243eb1" />
+
+At this point, we’ve officially created our first virtual partition within the LVM structure! A fully functional storage space that can grow, shrink, or move dynamically as our system evolves. Pretty cool, right?
 
 ---
 
 ## **Step 6: Extending Logical Volume Capacity**
 
-lvextend increases the size of an existing logical volume without destroying its data.  
+One of the biggest advantages of **LVM** over traditional partitioning is flexibility — you can increase storage on the fly without losing data or reformatting anything. That’s exactly what we’ll do here using the **lvextend** command.  
+
+The following command expands the existing logical volume (**my_lv**) by **500 MB**, extending its total capacity beyond the original 2 GB allocation:
 
 ```bash
 sudo lvextend -L +500MB /dev/my_vg/my_lv
 ```
 
-- `-L` specifies how much to extend the LV  
-- `+500MB` indicates that 500 MB should be added to the current size  
+Here’s the breakdown:
+- **-L** specifies the size change  
+- **+500MB** tells LVM to add (not replace) 500 MB to the current volume size  
 
 <img width="1117" height="116" alt="image" src="https://github.com/user-attachments/assets/e6e84491-624f-4d52-bb70-cd65d7f713e2" />
 
-The logical volume’s size increased from **2.00 GiB to 2.49 GiB**, confirming dynamic expansion.
+As shown above, the logical volume **my_lv** successfully expanded from **2.00 GiB** to **2.49 GiB**.  
+This proves just how powerful LVM can be — you can dynamically scale storage to meet your system’s needs without downtime or data loss. Try doing that with a static partition!
 
 ---
 
