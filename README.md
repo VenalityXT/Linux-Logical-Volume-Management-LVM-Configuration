@@ -214,10 +214,10 @@ Here’s what each command does:
 <img width="997" height="827" alt="image" src="https://github.com/user-attachments/assets/cec8e56d-b399-43c2-a6ff-70897cf913a7" />
 
 From the output, we can confirm:
-- Each **Physical Volume (sdb1, sdb2, sdb3, sdc1)** was successfully added to the Volume Group `my_vg`.  
-- The Volume Group `my_vg` reports a total size of **2.92 GiB** with **444 MB free**, aligning with our earlier calculations.  
-- The Logical Volume `my_lv` shows as **2.49 GiB**, matching the 2 GB initial allocation plus the 500 MB extension from Step 6.  
-- The `lsblk` output visually maps how the LV sits atop multiple partitions across disks `sdb` and `sdc`.  
+- Each **Physical Volume** (*sdb1, sdb2, sdb3, sdc1*) was successfully added to the Volume Group **my_vg**.  
+- The Volume Group (*my_vg*) reports a total size of **2.92 GiB** with **444 MB free**, aligning with our earlier calculations.  
+- The Logical Volume (*my_lv*) shows as **2.49 GiB**, matching the 2 GB initial allocation plus the 500 MB extension from Step 6.  
+- The `lsblk` output visually maps how the LV sits atop multiple partitions across disks **sdb** and **sdc**.  
 - Finally, `df -hT` verifies that all filesystems are intact, confirming there are no mount or read errors after resizing.
 
 This full verification step ties everything together by proving that the Logical Volume, Volume Group, and Physical Volumes are all linked properly and actively managed by LVM. 
