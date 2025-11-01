@@ -1,4 +1,4 @@
-![LVM_Architecture drawio](https://github.com/user-attachments/assets/25d88108-c240-4e4f-a541-f507f3606914)# **Linux Logical Volume Management (LVM) Configuration**
+# **Linux Logical Volume Management (LVM) Configuration**
 
 [![Linux](https://img.shields.io/badge/OS-Linux-blue?logo=linux)](https://www.linux.org/)
 [![Storage](https://img.shields.io/badge/Focus-Storage%20Administration-orange)](https://en.wikipedia.org/wiki/Logical_Volume_Manager_(Linux))
@@ -9,6 +9,8 @@
 
 ## **Project Overview**
 This project demonstrates the setup and configuration of Linux Logical Volume Management (LVM) within a virtualized environment. The lab uses **VirtualBox** and **Kali Linux** to simulate disk management operations such as creating partitions, initializing physical volumes, grouping them into a logical pool, and dynamically resizing storage. The purpose of this exercise is to develop proficiency in flexible storage administration, a core concept in Linux systems management.
+
+![LVM_Architecture drawio](https://github.com/user-attachments/assets/25d88108-c240-4e4f-a541-f507f3606914)
 
 ---
 
