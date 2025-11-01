@@ -37,9 +37,9 @@ This amount of space allows us to:
 - **Virtual Size**: The total capacity the VM perceives (e.g., 2 GB or 200 GB).  
 - **Actual Size**: The current disk space currently being utilized on the host.
 
-Because of this dynamic allocation, you can safely allocate larger virtual disks for testing without immediately using that same amount of physical storage on your host. This allows flexible experimentation with multiple drives and configurations while keeping your system efficient.
+This dynamic allocation allows you to safely allocate larger virtual disks for testing without immediately using that same amount of physical storage on your host. This allows flexible experimentation with multiple drives and configurations while keeping your system efficient.
 
-> This setup actually mirrors a real multi-disk environment where admins manage multiple storage devices instead of one monolithic disk!
+> This setup closely mirrors a real multi-disk environment where admins manage multiple storage devices instead of one monolithic disk!
 <img width="1915" height="937" alt="image" src="https://github.com/user-attachments/assets/1fd9f58d-1af6-4b1f-8591-a6d7ca6444f4" />
 
 > You can think of it like potential and and kinetic energy for my physics nerds out there!
@@ -60,7 +60,7 @@ The output shows the main system disk (`/dev/sda`) along with the newly added dr
 
 To prepare the virtual disks for use with LVM, they must first be divided into smaller sections called **partitions**. Partitioning allows us to separate physical space on a disk into logical segments that can be individually managed, formatted, or combined later in a volume group.
 
-The **fdisk** utility is a command-line tool used to create and manage disk partitions in Linux. It supports both MBR (Master Boot Record) and GPT (GUID Partition Table) formats, though for this project, we’re using the simpler **MBR** layout since the goal is to practice foundational LVM concepts, not modern bootloader configurations.
+The **fdisk** utility is a command-line tool used to create and manage disk partitions in Linux. It supports both MBR (Master Boot Record) and GPT (GUID Partition Table) formats, though for this project, we’re using the simpler **MBR** layout since the goal is to practice foundational LVM concepts, not modern bootloader configurations (*Keep in mind it only supports upto 2 TB disks*).
 
 Here, the command below was used to create partitions on the `/dev/sdb` disk:
 
@@ -73,7 +73,7 @@ Inside fdisk:
 - Choose **p** for a primary partition  
 - Press **Enter** to accept the default partition number and first sector  
 - Specify the size (for example, `+682MB` for a 682 MB partition)  
-- Repeat this process to create three equal partitions on `/dev/sdb`  
+- Repeat this process to create three (roughly) equal partitions on `/dev/sdb`  
 - Finally, use **w** to write changes to the partition table  
 
 > Think of partitions as the Lego bricks that LVM is built upon; stack them right, and everything else just clicks together (Prof M ☝️)
@@ -112,7 +112,7 @@ sudo pvcreate /dev/sdc1
 
 The command writes LVM metadata to the specified partitions, preparing them for use in a **Volume Group (VG)**.  
 
-Verification with `sudo lvmdiskscan -l` shows the four recognized LVM physical volumes.  
+Verification with `sudo lvmdiskscan` shows the four recognized LVM physical volumes.  
 
 <img width="624" height="829" alt="image" src="https://github.com/user-attachments/assets/6176cf13-b0ea-48b4-8b6a-8c154fc06833" />
 
