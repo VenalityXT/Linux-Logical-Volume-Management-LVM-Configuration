@@ -128,8 +128,7 @@ To create the group, we use the **vgcreate** command:
 sudo vgcreate my_vg /dev/sdb1 /dev/sdb2 /dev/sdb3 /dev/sdc1
 ```
 
-This command initializes a new volume group named **my_vg**, combining the four physical partitions created earlier into one flexible pool of storage.  
-If successful, it will output a confirmation with `Volume group "my_vg" successfully created`.
+This command initializes a new volume group named **my_vg**, combining the four physical partitions created earlier into one flexible pool of storage. If successful, it will output a confirmation with `Volume group "my_vg" successfully created`.
 
 <img width="718" height="108" alt="image" src="https://github.com/user-attachments/assets/8efba53f-6adb-499d-bad6-3905b6a4c80d" />
 
