@@ -24,10 +24,25 @@ This project demonstrates the setup and configuration of Linux Logical Volume Ma
 
 ## **Step 1: Creating Virtual Disks in VirtualBox**
 
-In VirtualBox, additional virtual disks were created and attached to the Kali Linux VM. Each disk was configured with a **2 GB dynamic allocation** to simulate multiple storage devices.  
+In this lab, additional virtual disks were created and attached to the Kali Linux VM in VirtualBox to simulate working with multiple physical drives. Each new disk was provisioned as a dynamically allocated virtual disk with a virtual size of 2 GB.
 
-- **Virtual Size** represents the total space allocated to the virtual disk.  
-- **Actual Size** is the physical disk usage on the host system.  
+The reason 2 GB was chosen is intentional. When working with Logical Volume Management (LVM), you need enough raw space to actually demonstrate realistic storage management tasks: creating multiple partitions, turning those partitions into physical volumes, and then grouping them into one volume group. If the disk is too small, you cannot meaningfully split it into multiple partitions and still have usable storage in each. Around 2 GB is a good lower bound for this project because it lets you do things like:
+- Split one disk into multiple ~600–700 MB partitions
+- Create another disk with a ~1 GB partition
+- Add them all into a single logical pool and still have space left to extend a logical volume later
+
+In other words, 2 GB is not an arbitrary number. It is large enough to support multiple partitions and LVM operations but still small enough that you are not wasting host storage.
+
+When adding these disks in VirtualBox, they were created as dynamically allocated. This means VirtualBox reserves a “Virtual Size,” but it does not immediately consume that full amount on the host system. Instead, it only consumes “Actual Size,” which grows as the guest OS actually writes data to the disk.
+
+- Virtual Size is the maximum capacity the VM sees. In this case, for each new virtual hard drive, that is 2 GB
+- Actual Size is how much space is currently being used on the physical host to store the contents of that drive. On a new, empty drive this is only a few megabytes
+
+This has two practical implications for anyone repeating this project:
+1. You can safely create multiple virtual disks at sizes that look “big” on paper without immediately filling your host machine’s real storage
+2. You should not be afraid to over-provision slightly in VirtualBox. Giving yourself a 20 GB root disk and a few extra 2 GB practice disks does not mean you are instantly losing 26 GB of laptop SSD. You only pay for what is actually written inside the VM
+
+This setup models a real multi-drive or multi-LUN Linux server, which is important when practicing LVM because LVM is most useful in environments that do not rely on a single physical disk.
 
 <img width="1915" height="937" alt="image" src="https://github.com/user-attachments/assets/1fd9f58d-1af6-4b1f-8591-a6d7ca6444f4" />
 
